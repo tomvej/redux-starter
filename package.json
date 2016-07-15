@@ -1,0 +1,11 @@
+{
+  "name": "starter",
+  "version": "1.0.0",
+  "description": "Personalized starter pack for react+redux+less applications.",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server -d --inline --hot"
+  },
+  "author": "tom.vejpustek@centrum.cz",
+  "license": "GPL-3.0"
+}
