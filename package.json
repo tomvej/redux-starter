@@ -1,7 +1,11 @@
 {
-  "name": "starter",
+  "name": "redux-starter",
   "version": "1.0.0",
   "description": "Personal starter pack for redux applications.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomvej/redux-starter.git"
+  },
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server -d --inline --hot"
   },
