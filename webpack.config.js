@@ -1,5 +1,8 @@
 module.exports = {
-    entry: './src/',
+    entry: [
+        'babel-polyfill',
+        './src/'
+    ],
     output: {
         path: __dirname + '/dist',
         publicPath: '/dist/',
