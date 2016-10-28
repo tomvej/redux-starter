@@ -44,8 +44,6 @@
             "devDependencies": ["**/*.spec.js"],
             "optionalDependencies": false
         }],
-        /* we will use that for tests */
-        "no-void" : "off",
 
         "react/jsx-key": "warn"
     }
