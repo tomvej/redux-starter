@@ -1,5 +1,6 @@
 module.exports = {
     entry: [
+        'react-hot-loader/patch',
         'babel-polyfill',
         './src/'
     ],
