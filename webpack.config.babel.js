@@ -1,13 +1,15 @@
-module.exports = {
+import path from 'path';
+
+export default {
     entry: [
         'react-hot-loader/patch',
         'babel-polyfill',
-        './src/'
+        './src/',
     ],
     output: {
-        path: __dirname + '/dist',
+        path: path.resolve(__dirname, '/dist'),
         publicPath: '/dist/',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     module: {
         loaders: [
@@ -16,13 +18,13 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: '/node_modules/',
                 query: {
-                    presets: ['es2015', 'react']
-                }
+                    presets: ['es2015', 'react'],
+                },
             },
             {
                 test: /\.less$/,
-                loader: 'style!css!less'
-            }
-        ]
-    }
+                loader: 'style!css!less',
+            },
+        ],
+    },
 };
