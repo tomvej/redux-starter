@@ -1,5 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'webpack-html-plugin';
+import webpack from 'webpack';
 
 export default {
     entry: [
@@ -8,7 +9,7 @@ export default {
         './src/',
     ],
     output: {
-        path: path.resolve(__dirname, '/dist'),
+        path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
         filename: 'bundle.js',
     },
@@ -17,6 +18,7 @@ export default {
             template: 'src/index.html',
             inject: true,
         }),
+        new webpack.NoErrorsPlugin(),
     ],
     module: {
         loaders: [
