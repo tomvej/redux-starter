@@ -1,4 +1,5 @@
 import path from 'path';
+import HtmlWebpackPlugin from 'webpack-html-plugin';
 
 export default {
     entry: [
@@ -8,9 +9,15 @@ export default {
     ],
     output: {
         path: path.resolve(__dirname, '/dist'),
-        publicPath: '/dist/',
+        publicPath: '/',
         filename: 'bundle.js',
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            inject: true,
+        }),
+    ],
     module: {
         loaders: [
             {
