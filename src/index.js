@@ -14,12 +14,13 @@ render(
 
 if (module.hot) {
     module.hot.accept('./Root', () => {
-        const ReloadedRoot = require('./Root').default; // eslint-disable-line global-require, #scaffolding
-        render(
-            <AppContainer>
-                <ReloadedRoot store={store} />
-            </AppContainer>,
-            document.getElementById('content')
-        );
+        System.import('./Root').then((root) => {
+            render(
+                <AppContainer>
+                    <root.default store={store} />
+                </AppContainer>,
+                document.getElementById('content')
+            );
+        });
     });
 }
