@@ -21,18 +21,23 @@ export default {
         new webpack.NoErrorsPlugin(),
     ],
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                use: 'babel-loader',
                 exclude: '/node_modules/',
-                query: {
+                options: {
                     presets: ['es2015', 'react'],
+                    modules: false,
                 },
             },
             {
                 test: /\.less$/,
-                loader: 'style!css!less',
+                use: [
+                    {loader: 'style-loader'},
+                    {loader: 'css-loader'},
+                    {loader: 'less-loader'},
+                ],
             },
         ],
     },
