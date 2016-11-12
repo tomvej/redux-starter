@@ -1,10 +1,11 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'webpack-html-plugin';
 import webpack from 'webpack';
+import filterUnset from './tools/filterUnset';
 
-export default {
+export default ({dev, prod}) => filterUnset({
     entry: [
-        'react-hot-loader/patch',
+        dev && 'react-hot-loader/patch',
         'babel-polyfill',
         './src/',
     ],
@@ -41,4 +42,4 @@ export default {
             },
         ],
     },
-};
+});
