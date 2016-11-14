@@ -2,7 +2,11 @@ import path from 'path';
 import HtmlWebpackPlugin from 'webpack-html-plugin';
 import webpack from 'webpack';
 
+/** removes empty items from array */
 const array = (target) => target.filter((item) => item);
+
+/** removes empty properties from object */
+const object = (target) => Object.keys(target).filter((key) => target[key]).reduce((result, key) => Object.assign({[key]: target[key]}, result), {});
 
 export default ({dev, prod}) => ({
     entry: array([
