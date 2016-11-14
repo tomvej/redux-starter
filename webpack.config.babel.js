@@ -1,26 +1,27 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'webpack-html-plugin';
 import webpack from 'webpack';
-import filterUnset from './tools/filterUnset';
 
-export default ({dev, prod}) => filterUnset({
-    entry: [
+const array = (target) => target.filter((item) => item);
+
+export default ({dev, prod}) => ({
+    entry: array([
         dev && 'react-hot-loader/patch',
         'babel-polyfill',
         './src/',
-    ],
+    ]),
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
         filename: 'bundle.js',
     },
-    plugins: [
+    plugins: array([
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             inject: true,
         }),
-        new webpack.NoErrorsPlugin(),
-    ],
+        dev && new webpack.NoErrorsPlugin(),
+    ]),
     module: {
         rules: [
             {
