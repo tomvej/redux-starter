@@ -2,6 +2,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
+import CompressionPlugin from 'compression-webpack-plugin';
 
 /** removes falsy items from array */
 const array = (target) => target.filter((item) => item);
@@ -28,6 +29,7 @@ export default ({dev}) => ({
         !dev && new webpack.optimize.UglifyJsPlugin(),
         !dev && new webpack.optimize.DedupePlugin(),
         !dev && new ExtractTextPlugin('style.css'),
+        !dev && new CompressionPlugin({test: /\.js$|\.css$/,})
     ]),
     module: {
         rules: [

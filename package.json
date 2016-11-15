@@ -39,6 +39,7 @@
     "chai": "^3.5.0",
     "chai-enzyme": "^0.6.0",
     "chai-immutable": "^1.6.0",
+    "compression-webpack-plugin": "^0.3.2",
     "css-loader": "^0.25.0",
     "dirty-chai": "^1.2.2",
     "enzyme": "^2.5.1",
