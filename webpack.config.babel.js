@@ -23,6 +23,9 @@ export default ({dev, prod}) => ({
             template: 'src/index.html',
             inject: true,
         }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
+        }),
         dev && new webpack.NoErrorsPlugin(),
         prod && new webpack.optimize.UglifyJsPlugin(),
         prod && new webpack.optimize.DedupePlugin(),
