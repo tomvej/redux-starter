@@ -2,13 +2,10 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 
-/** removes empty items from array */
+/** removes falsy items from array */
 const array = (target) => target.filter((item) => item);
 
-/** removes empty properties from object */
-const object = (target) => Object.keys(target).filter((key) => target[key]).reduce((result, key) => Object.assign({[key]: target[key]}, result), {});
-
-export default ({dev, prod}) => ({
+export default ({dev}) => ({
     entry: array([
         dev && 'react-hot-loader/patch',
         'babel-polyfill',
@@ -27,8 +24,8 @@ export default ({dev, prod}) => ({
             'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
         }),
         dev && new webpack.NoErrorsPlugin(),
-        prod && new webpack.optimize.UglifyJsPlugin(),
-        prod && new webpack.optimize.DedupePlugin(),
+        !dev && new webpack.optimize.UglifyJsPlugin(),
+        !dev && new webpack.optimize.DedupePlugin(),
     ]),
     module: {
         rules: [
