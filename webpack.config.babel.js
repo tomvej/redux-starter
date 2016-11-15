@@ -31,7 +31,13 @@ export default ({dev}) => ({
         rules: [
             {
                 test: /\.js$/,
-                use: 'babel-loader',
+                use: [{
+                    loader: 'babel-loader',
+                    query: {
+                        cacheDirectory: true,
+                        plugins: array([!dev && 'transform-react-remove-prop-types']),
+                    },
+                }],
                 exclude: /node_modules/,
                 options: {
                     presets: ['es2015', 'react'],
