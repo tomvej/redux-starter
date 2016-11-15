@@ -24,6 +24,8 @@ export default ({dev, prod}) => ({
             inject: true,
         }),
         dev && new webpack.NoErrorsPlugin(),
+        prod && new webpack.optimize.UglifyJsPlugin(),
+        prod && new webpack.optimize.DedupePlugin(),
     ]),
     module: {
         rules: [
