@@ -1,5 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
 
 /** removes falsy items from array */
@@ -26,6 +27,7 @@ export default ({dev}) => ({
         dev && new webpack.NoErrorsPlugin(),
         !dev && new webpack.optimize.UglifyJsPlugin(),
         !dev && new webpack.optimize.DedupePlugin(),
+        !dev && new ExtractTextPlugin('style.css'),
     ]),
     module: {
         rules: [
@@ -46,11 +48,12 @@ export default ({dev}) => ({
             },
             {
                 test: /\.less$/,
-                use: [
-                    {loader: 'style-loader'},
-                    {loader: 'css-loader'},
-                    {loader: 'less-loader'},
-                ],
+                loader: dev
+                    ? ['style-loader', 'css-loader', 'less-loader']
+                    : ExtractTextPlugin.extract({
+                        fallbackLoader: 'style-loader',
+                        loader: ['css-loader', 'less-loader'],
+                    }),
             },
         ],
     },
