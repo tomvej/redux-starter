@@ -1,5 +1,5 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'webpack-html-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 
 /** removes empty items from array */
