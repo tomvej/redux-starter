@@ -32,7 +32,7 @@ export default ({dev}) => ({
             {
                 test: /\.js$/,
                 use: 'babel-loader',
-                exclude: '/node_modules/',
+                exclude: /node_modules/,
                 options: {
                     presets: ['es2015', 'react'],
                     modules: false,
