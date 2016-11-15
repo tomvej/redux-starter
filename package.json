@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server -d --inline --hot --env.dev --progress",
+    "prebuild": "npm run lint && npm run test",
     "build": "webpack --progress --env",
     "lint": "eslint src tools",
     "test:base": "mocha --compilers js:babel-register tools/test.js src/**/*.spec.js tools/**/*.spec.js",
