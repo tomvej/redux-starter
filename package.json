@@ -14,7 +14,7 @@
     "lint": "npm run lint:base -- --fix",
     "test:base": "mocha --compilers js:babel-register tools/test.js src/**/*.spec.js tools/**/*.spec.js",
     "test": "npm run test:base -- --reporter spec",
-    "test:watch": "npm run test:base -- --reporter min --watch",
+    "test:watch": "npm run test:base -- --reporter min --watch"
   },
   "author": "tom.vejpustek@centrum.cz",
   "license": "GPL-3.0",
