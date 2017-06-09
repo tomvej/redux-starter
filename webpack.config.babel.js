@@ -42,6 +42,7 @@ export default ({dev}) => ({
                 options: {
                     presets: [
                         ['es2015', {modules: false}],
+                        'stage-1',
                         'react',
                     ],
                     cacheDirectory: true,
