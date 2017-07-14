@@ -12,7 +12,7 @@
     "build": "webpack --progress --env",
     "lint": "eslint src tools",
     "lint:fix": "npm run lint -- --fix",
-    "test:base": "mocha --compilers js:babel-register src/test.js src/**/*.spec.js",
+    "test:base": "mocha --compilers js:babel-register src/test.js \"src/**/*.spec.js\"",
     "test": "npm run test:base -- --reporter spec",
     "test:watch": "npm run test:base -- --reporter min --watch"
   },
