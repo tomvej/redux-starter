@@ -42,7 +42,7 @@
         "no-else-return": "off",
         /* test dependencies are dev dependencies */
         "import/no-extraneous-dependencies": ["error", {
-            "devDependencies": ["**/*.spec.js"],
+            "devDependencies": ["src/test.js", "**/*.spec.js"],
             "optionalDependencies": false
         }],
 
