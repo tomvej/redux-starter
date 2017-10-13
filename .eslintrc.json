@@ -26,6 +26,7 @@
         "react/jsx-indent-props": ["error", 4],
 
         "object-curly-spacing": ["error", "never"],
+        "object-curly-newline": ["error", {"multiline": true, "consistent": true}],
         "react/jsx-filename-extension": "off",
         "arrow-parens": ["error", "always"],
         "max-len": "off",
