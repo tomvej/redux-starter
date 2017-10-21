@@ -6,6 +6,14 @@ import webpack from 'webpack';
 /** removes falsy items from array */
 const array = (...target) => target.filter((item) => item);
 
+const createStyleLoader = (dev, ...loaders) => (dev
+    ? ['style-loader'].concat(loaders)
+    : ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: loaders,
+    })
+);
+
 export default ({dev}) => ({
     entry: array(
         dev && 'react-hot-loader/patch',
@@ -49,13 +57,26 @@ export default ({dev}) => ({
                 },
             },
             {
-                test: /\.less$/,
-                loader: dev
-                    ? ['style-loader', 'css-loader', 'less-loader']
-                    : ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: ['css-loader', 'less-loader'],
-                    }),
+                test: /\.(css|less)$/,
+                include: /node_modules/,
+                loader: createStyleLoader(dev, 'css-loader', 'less-loader'),
+            },
+            {
+                test: /index.less/,
+                include: /src/,
+                loader: createStyleLoader(dev, 'css-loader', 'less-loader'),
+            },
+            {
+                test: /\.(css|less)$/,
+                include: /src/,
+                exclude: /index.less/,
+                loader: createStyleLoader(dev, {
+                    loader: 'css-loader',
+                    query: {
+                        modules: true,
+                        localIdentName: '[name]__[local]__[hash:base64:5]',
+                    },
+                }, 'less-loader'),
             },
         ],
     },
