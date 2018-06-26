@@ -6,7 +6,9 @@ import './index.less';
 // eslint-disable-next-line react/prop-types, #scaffolding
 const Root = ({store}) => (
     <Provider store={store}>
-        <div>It works!</div>
+        <div>
+            It works!
+        </div>
     </Provider>
 );
 
