@@ -40,7 +40,7 @@ export default wrapConfig((dev) => ({
                 exclude: /node_modules/,
                 options: {
                     presets: [
-                        ['es2015', {modules: false}],
+                        ['env', {modules: false}],
                         'stage-1',
                         'react',
                     ],
