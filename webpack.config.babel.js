@@ -11,11 +11,10 @@ const createStyleLoader = (dev, ...loaders) => [dev ? 'style-loader' : ExtractTe
 const wrapConfig = (config) => (env, {mode}) => config(mode === 'development');
 
 export default wrapConfig((dev) => ({
-    entry: array(
-        dev && 'react-hot-loader/patch',
+    entry: [
         'babel-polyfill',
         './src/',
-    ),
+    ],
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
@@ -44,6 +43,7 @@ export default wrapConfig((dev) => ({
                         'stage-1',
                         'react',
                     ],
+                    plugins: ['react-hot-loader/babel'],
                     cacheDirectory: true,
                 },
             },

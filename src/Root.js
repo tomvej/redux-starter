@@ -3,8 +3,9 @@ import {Provider} from 'react-redux';
 
 import './index.less';
 
-// eslint-disable-next-line react/prop-types, #scaffolding
-const Root = ({store}) => (
+import store from './store';
+
+const Root = () => (
     <Provider store={store}>
         <div>
             It works!
