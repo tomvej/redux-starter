@@ -1,6 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'mini-css-extract-plugin';
+import CircularDependencyPlugin from 'circular-dependency-plugin';
 import webpack from 'webpack';
 
 /** removes falsy items from array */
@@ -27,6 +28,10 @@ export default wrapConfig((dev) => ({
         }),
         dev && new webpack.HotModuleReplacementPlugin(),
         !dev && new ExtractTextPlugin({filename: 'style.[chunkhash].css'}),
+        new CircularDependencyPlugin({
+            exclude: /node_modules/,
+            failOnError: true,
+        }),
     ),
     module: {
         rules: [
