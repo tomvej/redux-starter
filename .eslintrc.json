@@ -46,6 +46,7 @@
             "devDependencies": ["src/test.js", "**/*.spec.js"],
             "optionalDependencies": false
         }],
+        "react/jsx-one-expression-per-line": "off",
 
         "react/jsx-key": "warn"
     },
