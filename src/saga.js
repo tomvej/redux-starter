@@ -1,3 +1,2 @@
-// eslint-disable-next-line no-empty-function, #temporary
-export default function* () {
-}
+// eslint-disable-next-line no-empty-function, #scaffolding
+export default function* () {}

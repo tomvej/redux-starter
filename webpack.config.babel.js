@@ -1,79 +1,93 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'mini-css-extract-plugin';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
 import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CircularDependencyPlugin from 'circular-dependency-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import sass from 'sass';
 
-/** removes falsy items from array */
-const array = (...target) => target.filter((item) => item);
+const array = (...target) => target.filter(Boolean);
 
-const createStyleLoader = (dev, ...loaders) => [dev ? 'style-loader' : ExtractTextPlugin.loader].concat(loaders);
-
-const wrapConfig = (config) => (env, {mode}) => config(mode === 'development');
-
-export default wrapConfig((dev) => ({
-    entry: [
-        'babel-polyfill',
-        './src/',
-    ],
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
-        filename: dev ? '[name].js' : '[name].[chunkhash].js',
-    },
-    plugins: array(
-        new HtmlWebpackPlugin({
-            template: 'src/index.html',
-            inject: true,
-        }),
-        dev && new webpack.HotModuleReplacementPlugin(),
-        !dev && new ExtractTextPlugin({filename: 'style.[chunkhash].css'}),
-        new CircularDependencyPlugin({
-            exclude: /node_modules/,
-            failOnError: true,
-        }),
-    ),
-    module: {
-        rules: [
-            {
+export default ((config) => ({devserver}, {mode}) => config(devserver, mode === 'development'))(
+    (devServer, dev) => ({
+        entry: [
+            '@babel/polyfill',
+            './src',
+        ],
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            publicPath: '/',
+            filename: devServer ? '[name].js' : '[name].[contenthash].js',
+        },
+        optimization: {
+            splitChunks: false,
+            minimizer: [new UglifyJsPlugin({
+                exclude: /node_modules/,
+                cache: true,
+                parallel: true,
+                uglifyOptions: {
+                    mangle: true,
+                    compress: true,
+                    output: {
+                        comments: false,
+                    },
+                },
+            })],
+        },
+        devtool: dev ? 'cheap-module-source-map' : false,
+        resolve: {
+            modules: ['src', 'node_modules'],
+        },
+        devServer: {
+            hot: true,
+            inline: true,
+        },
+        plugins: array(
+            devServer && new HtmlWebpackPlugin({
+                template: 'src/index.html',
+                filename: 'index.html',
+                inject: true,
+            }),
+            devServer && new webpack.HotModuleReplacementPlugin(),
+            new CircularDependencyPlugin({
+                exclude: /node_modules/,
+                failOnError: true,
+            }),
+            !devServer && new MiniCssExtractPlugin({
+                filename: '[name].[contenthash].css',
+            }),
+        ),
+        module: {
+            rules: [{
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
                 options: {
-                    presets: [
-                        ['env', {modules: false}],
-                        'stage-1',
-                        'react',
-                    ],
-                    plugins: ['react-hot-loader/babel'],
                     cacheDirectory: true,
                 },
-            },
-            {
-                test: /\.(css|less)$/,
-                include: /node_modules/,
-                loader: createStyleLoader(dev, 'css-loader', 'less-loader'),
-            },
-            {
-                test: /index.less/,
-                include: /src/,
-                loader: createStyleLoader(dev, 'css-loader', 'less-loader'),
-            },
-            {
-                test: /\.(css|less)$/,
-                include: /src/,
-                exclude: /index.less/,
-                loader: createStyleLoader(dev, {
-                    loader: 'css-loader',
-                    query: {
-                        modules: true,
-                        localIdentName: '[name]__[local]__[hash:base64:5]',
+                exclude: /node_modules/,
+            }, {
+                test: /\.(css|scss)$/,
+                use: array(
+                    devServer ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            minimize: true,
+                            sourceMap: true,
+                            modules: true,
+                            localIdentName: '[name]__[local]__[hash:base64:5]',
+                        },
                     },
-                }, 'less-loader'),
-            },
-        ],
-    },
-    optimization: {
-        noEmitOnErrors: true,
-    },
-}));
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                            implementation: sass,
+                        },
+                    },
+                ),
+            }],
+        },
+    }),
+);

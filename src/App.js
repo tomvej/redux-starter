@@ -1,16 +1,10 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 
-import './index.less';
-
 import store from './store';
 
-const Root = () => (
+export default () => (
     <Provider store={store}>
-        <div>
-            It works!
-        </div>
+        <div>It works!</div>
     </Provider>
 );
-
-export default Root;
