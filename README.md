@@ -3,8 +3,8 @@ My personal starter pack for quick-starting redux applications.
 ## Features
 * webpack-dev-server with hot reload
 * react + redux
-* immutable + redux-immutable
+* redux-freeze + ramda
 * redux-saga
-* less
-* mocha + chai (should) + sinon + enzyme (+ assorted assertions)
+* sass
+* mocha + chai (should)
 * eslint (customized airbnb)
