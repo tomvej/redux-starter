@@ -43,9 +43,8 @@ export default ((config) => ({devserver}, {mode}) => config(devserver, mode === 
             inline: true,
         },
         plugins: array(
-            devServer && new HtmlWebpackPlugin({
+            new HtmlWebpackPlugin({
                 template: 'src/index.html',
-                filename: 'index.html',
                 inject: true,
             }),
             devServer && new webpack.HotModuleReplacementPlugin(),
